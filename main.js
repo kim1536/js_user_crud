@@ -36,13 +36,11 @@ function onDelete(topicId) {
     if (confirm('삭제 하시겠습니까 ?')) {
         xhr.onload = () => {
             if (xhr.status == 200 && xhr.readyState == 4) {
-               let topic = JSON.parse(xhr.response);
-               console.log(topic);
+                location.reload();
             } else {
                 console.log("실패");
             }
         };
         xhr.send(null);
     } 
-    debugger;
 };
