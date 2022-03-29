@@ -8,8 +8,8 @@ xhr.onload = () => {
      const topic = JSON.parse(xhr.response); 
      if(xhr.status == 200 && xhr.readyState == 4) {
          // 결과로 구해진 상세페이지에 화면에 출력한다.
-         var table = document.getElementById("topicTable").getElementsByTagName('tbody')[0];
-         var newRow = table.insertRow(table.length);
+         let table = document.getElementById("topicTable").getElementsByTagName('tbody')[0];
+         let newRow = table.insertRow(table.length);
          cell1 = newRow.insertCell(0);
          cell1.innerHTML = topic.id;
          cell2 = newRow.insertCell(1);
