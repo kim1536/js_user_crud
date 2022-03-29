@@ -14,7 +14,7 @@ xhr.onload = () => {
            <td><a style="cursor:pointer;" id="detailTopic" href="./detail.html?id=${topic.id}">${topic.title}</a></td>
            <td>${topic.age}</td>
            <td>${topic.createAt}</td>
-           <td><button type="button" onClick="onEdit(${topic.id})">수정</button></td>
+           <td><button type="button" onClick="location.href='./edit.html?id=${topic.id}'">수정</button></td>
            <td><button type="button" onClick="onDelete(${topic.id})">삭제</button></td>
            </tr>`
        })
