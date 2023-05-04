@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="./js/main.js"></script>
-    <title>Topic List</title>
+    <script type="module"  defer src="./js/main.js"></script>
+    <title>User List</title>
 </head>
 <body>
-    <h1>Topic List</h1>
+    <h1>User List</h1>
     <div>
-        <div>
-            <button type="button" onclick="location.href='Add.html'">글 쓰기</button>    
-        </div>
-        <table id="topicsTable">
+        <table>
             <thead>
                 <tr>
                     <th>번호</th>
-                    <th>제목</th>
-                    <th>나이</th>
-                    <th>등록 날짜</th>
+                    <th>사용자명</th>
+                    <th>사용자 ID</th>
+                    <th>등록 날자</th>
                 </tr>
             </thead>
-            <tbody id="topicDate">
+            <tbody id="userDate">
 
             </tbody>
         </table>
+    </div>
+    <div>
+        <button type="button" onclick="location.href='./add.html'">글 쓰기</button>    
     </div>
 </body>
 </html>
