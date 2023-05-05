@@ -1,64 +1,63 @@
-// 파라미터러 잔달된 topic id로 rest api를 통해서 topic를 구하여 화면에 출력한다.
-let topicId = new URL(location.href).searchParams.get("id");
+import { httpServer } from "./httpServer.js";
 
-const xhr = new XMLHttpRequest();
-xhr.open('GET', `http://localhost:8080/topic/${topicId}`, true);
-xhr.onload = () => {
-     // JSON으로 데이터 가져오기
-     const topic = JSON.parse(xhr.response); 
-     if(xhr.status == 200 && xhr.readyState == 4) {
-         // 결과로 구해진 수정페이지 화면에 출력한다.
-         document.querySelector('#topicEditDiv').innerHTML += `<form id="topicEdit">
-         <label> Title: 
-             <input  type="text" name="title" placeholder="${topic.title}" required>
-         </label>
-         </br>
-         <label> AGE: 
-             <input  type="number" name="age"  max= "100"  placeholder="${topic.age}" required>
-         </label>
-         </br>
-         <label> Description: 
-             <input  type="text" name="desc"  placeholder="${topic.description}" required>
-         </label>
-         </br>
-         <button type="submit" onClick="onEdit(${topic.id})">등록</button>
-        </form>`
-       }
-    else {
-        console.log("실패");
-    }
-}
- xhr.send();
+let serectId = new URL(location.href).searchParams.get("id");
 
- // 등록 버튼을 클릭 시 form에서 입력 받은 값을 서버에 전달 후 메인 페이지로 이동한다.
-function onEdit(editTopicId) {
-    const editForm = document.querySelector("#topicEdit");
+const url = "http://localhost:5000/users"
+
+const today = new Date();
+const year = today.getFullYear(); // 년도
+const month = today.getMonth() + 1;  // 월
+const date = today.getDate(); 
+
+getUser(`${url}/${serectId}`);
+
+function getUser(url){
+  return httpServer.get(url)
+  .then((user) => {
+    const userTable = document.querySelector('#userEditDiv');
+    userTable.innerHTML += `<form id="userEdit">
+      <label> USER ID: 
+          <input  type="text" name="userId" placeholder="${user.userId}" required>
+      </label>
+      </br>
+      <label> USER PW: 
+        <input  type="text" name="userPW"  placeholder="${user.userPW}" required>
+      </label>
+      </br>
+      <label> USER NM: 
+        <input  type="text" name="userNM"  placeholder="${user.userNM}" required>
+      </label>
+      </br>
+      <label> AGE: 
+          <input  type="number" name="userAg"  max= "100"  placeholder="${user.userAg}" required>
+      </label>
+      </br>
+      <button type="submit">등록</button>
+    </form>`;
+    const editForm = document.querySelector("#userEdit");
     editForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+      e.preventDefault();
 
-   let editFormData = {
-    title: e.target.title.value,
-    age: e.target.age.value,
-    description: e.target.desc.value,
-    createAt: new Date(),
-    };
-
-    let editTopic = JSON.stringify(editFormData); // JSON데이터로 변환 함
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('PUT', `http://localhost:8080/topic/${editTopicId}`, true);
-    xhr.setRequestHeader('Content-type','application/json');
-
-    xhr.onload = () => {
-        if (xhr.status == 200 && xhr.readyState == 4) {
-            console.log("성공");
-            alert("글 수정 성공");
-            location.href = 'http://127.0.0.1:5500/main.html';
-        } else {
-            console.log("실패");
-        }
-    }
-    xhr.send(editTopic);
-});
+      let userFormData = {
+        userId: e.currentTarget.userId.value,
+        userPW: e.currentTarget.userPW.value,
+        userNM: e.currentTarget.userNM.value,
+        userAg: e.currentTarget.userAg.value,
+        creatDT: year + "-" + month + "-" + date
+      };
+      console.log(userFormData)
+      onEdit(user.id, userFormData)
+      .then(() => {
+        location.href = "/main.html";
+      })
+      .catch((err) => console.error(err));
+    })
+  })
+  .catch(error => {
+    console.log(error)});
 };
- 
+
+
+function onEdit(userID, userFormData) {
+    return httpServer.put(`${url}/${userID}`, userFormData)
+};

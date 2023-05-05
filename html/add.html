@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="./js/add.js"></script>
+    <script type="module" defer src="../js/add.js"></script>
     <title>Document</title>
 </head>
 <body>
     <h1>글쓰기</h1>
     <div>
-    <form id="topicAdd">
-        <label> Title: 
-            <input  type="text" name="title" placeholder="제목을 입력 해주세요." required>
+    <form id="userAdd">
+        <label> userID: 
+            <input  type="text" name="userId" placeholder="ID을 입력 해주세요." required>
+        </label>
+        </br>
+        <label> userPW: 
+            <input  type="text" name="userPW" placeholder="PW 입력해주세요." required>
+        </label>
+        </br>
+        <label> userNM: 
+            <input  type="text" name="userNM" placeholder="이름을 입력해주세요." required>
         </label>
         </br>
         <label> AGE: 
-            <input  type="number" name="age"  max= "100" placeholder="나이를 입력 해주세요." required>
-        </label>
-        </br>
-        <label> Description: 
-            <input  type="text" name="desc" placeholder="내용을 입력해주세요." required>
+            <input  type="number" name="userAg"  max= "100" placeholder="나이를 입력 해주세요." required>
         </label>
         </br>
         <button type="submit">등록</button>

@@ -1,9 +1,9 @@
-const xhr = new XMLHttpRequest();
 export const httpServer = {
   get(url) {
-   return new Promise(function(resolve, reject) {
-     xhr.open('GET', url, true);
-     xhr.send();
+    return new Promise(function(resolve, reject) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.send();
       xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(JSON.parse(xhr.response));
@@ -17,47 +17,60 @@ export const httpServer = {
     });
   },
   post(url, option) {
-    return fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(option),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+    return new Promise(function(resolve, reject) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(xhr.responseText);
+          } else {
+            reject(xhr.statusText);
+          }
         }
-        return response.json();
-      })
+      };
+      xhr.onerror = function() {
+        reject(xhr.statusText);
+      };
+      xhr.send(JSON.stringify(option));
+    });
   },
   put(url, option) {
-  return fetch(url, {
-      method: 'PUT',
-      body: JSON.stringify(option),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-  },  
+    return new Promise(function(resolve, reject) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(xhr.responseText);
+          } else {
+            reject(xhr.statusText);
+          }
+        }
+      };
+      xhr.onerror = function() {
+        reject(xhr.statusText);
+      };
+      xhr.send(JSON.stringify(option));
+    });
+  },
   delete(url) {
-    return new Promise((resolve, reject) => {
-      xhr.open('DELETE', url);
-      xhr.send();
-      xhr.onload = () => {
+    return new Promise(function(resolve, reject) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('DELETE', url, true);
+      xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(JSON.parse(xhr.response));
         } else {
-          reject(xhr.statusText);
+          reject(Error(xhr.statusText));
         }
       };
-      xhr.onerror = () => reject(xhr.statusText);
+      xhr.onerror = function() {
+        reject(Error("Network Error"));
+      };
+      xhr.send();
     });
   }
-}
+};
