@@ -1,0 +1,24 @@
+{
+  "name": "vanilla-javascript-crud",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch db.json --port 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kim1536/vanilla-javascript-crud.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kim1536/vanilla-javascript-crud/issues"
+  },
+  "homepage": "https://github.com/kim1536/vanilla-javascript-crud#readme",
+  "devDependencies": {
+    "json-server": "^0.17.3"
+  }
+}
