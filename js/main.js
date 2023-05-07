@@ -49,12 +49,10 @@ getUsers(url)
 
 
 function onDelete(userId) {
-    console.log(`${url}/${userId}`);
     return new Promise(function(resolve, reject) {
       httpServer.delete(`${url}/${userId}`)
         .then(() => {
-          alert("DELETE OK");
-          resolve();
+          resolve( alert("삭제 성공"));
         })
         .catch((error) => {
           console.error(error);
